@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование автомобиля</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5" style="max-width: 500px;">
+    <h3>Редактирование записи</h3>
+    <form th:action="@{/automobiles/edit/{id}(id=${automobile.id})}" th:object="${automobile}" method="post" class="card p-4 shadow-sm">
+        <div class="mb-3">
+            <label class="form-label">Гос. номер</label>
+            <input type="text" th:field="*{licensePlate}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Парковочное место</label>
+            <input type="text" th:field="*{parkingSpot}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Модель</label>
+            <select th:field="*{carModel.id}" class="form-select" required>
+                <option th:each="m : ${models}" th:value="${m.id}" th:text="${m.brand + ' ' + m.modelName}" th:selected="${m.id == automobile.carModel.id}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a th:href="@{/automobiles}" class="btn btn-secondary mt-2">Отмена</a>
+    </form>
+</div>
+</body>
+</html>
